@@ -18,9 +18,8 @@ def _ema_weights(factor, ema_weight, weight):
     """Apply grad sum to cumulative gradient."""
     """ema_weight = ema_weight * factor + weight * (1-factor), factor is always 0.9999"""
     Assign(ema_weight, ema_weight * factor)
-    Assign(weight, weight * (1 - factor))
 
-    return AssignAdd(ema_weight, weight)
+    return AssignAdd(ema_weight, weight * (1 - factor))
 
 
 class EMACell(nn.Cell):
